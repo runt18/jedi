@@ -151,7 +151,7 @@ class Arguments(tree.Base):
         return [self._evaluator.eval_element(el) for stars, el in self._split()]
 
     def __repr__(self):
-        return '<%s: %s>' % (type(self).__name__, self.argument_node)
+        return '<{0!s}: {1!s}>'.format(type(self).__name__, self.argument_node)
 
     def get_calling_var_args(self):
         if tree.is_node(self.argument_node, 'arglist', 'argument') \
@@ -248,8 +248,7 @@ def get_params(evaluator, func, var_args):
 
             if k in keys_used:
                 had_multiple_value_error = True
-                m = ("TypeError: %s() got multiple values for keyword argument '%s'."
-                     % (func.name, k))
+                m = ("TypeError: {0!s}() got multiple values for keyword argument '{1!s}'.".format(func.name, k))
                 calling_va = _get_calling_var_args(evaluator, var_args)
                 if calling_va is not None:
                     analysis.add(evaluator, 'type-error-multiple-values',
@@ -318,8 +317,7 @@ def get_params(evaluator, func, var_args):
                                  calling_va, message=m)
 
     for key, va_values in non_matching_keys.items():
-        m = "TypeError: %s() got an unexpected keyword argument '%s'." \
-            % (func.name, key)
+        m = "TypeError: {0!s}() got an unexpected keyword argument '{1!s}'.".format(func.name, key)
         for value in va_values:
             analysis.add(evaluator, 'type-error-keyword-argument', value.parent, message=m)
 
@@ -359,11 +357,10 @@ def _iterate_star_args(evaluator, array, input_node, func=None):
         for field_stmt in array.iter_content():
             yield iterable.AlreadyEvaluated([field_stmt])
     elif isinstance(array, Instance) and array.name.get_code() == 'tuple':
-        debug.warning('Ignored a tuple *args input %s' % array)
+        debug.warning('Ignored a tuple *args input {0!s}'.format(array))
     else:
         if func is not None:
-            m = "TypeError: %s() argument after * must be a sequence, not %s" \
-                % (func.name.value, array)
+            m = "TypeError: {0!s}() argument after * must be a sequence, not {1!s}".format(func.name.value, array)
             analysis.add(evaluator, 'type-error-star', input_node, message=m)
 
 
@@ -386,8 +383,7 @@ def _star_star_dict(evaluator, array, input_node, func):
 
     else:
         if func is not None:
-            m = "TypeError: %s argument after ** must be a mapping, not %s" \
-                % (func.name.value, array)
+            m = "TypeError: {0!s} argument after ** must be a mapping, not {1!s}".format(func.name.value, array)
             analysis.add(evaluator, 'type-error-star-star', input_node, message=m)
     return dict(dct)
 
@@ -398,6 +394,5 @@ def _error_argument_count(func, actual_count):
     if default_arguments == 0:
         before = 'exactly '
     else:
-        before = 'from %s to ' % (len(func.params) - default_arguments)
-    return ('TypeError: %s() takes %s%s arguments (%s given).'
-            % (func.name, before, len(func.params), actual_count))
+        before = 'from {0!s} to '.format((len(func.params) - default_arguments))
+    return ('TypeError: {0!s}() takes {1!s}{2!s} arguments ({3!s} given).'.format(func.name, before, len(func.params), actual_count))

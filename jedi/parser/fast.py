@@ -49,7 +49,7 @@ class FastModule(tree.Module):
         return [e for m in self.modules for e in m.error_statement_stacks]
 
     def __repr__(self):
-        return "<fast.%s: %s@%s-%s>" % (type(self).__name__, self.name,
+        return "<fast.{0!s}: {1!s}@{2!s}-{3!s}>".format(type(self).__name__, self.name,
                                         self.start_pos[0], self.end_pos[0])
 
     # To avoid issues with with the `parser.Parser`, we need setters that do
@@ -149,10 +149,10 @@ class ParserNode(object):
     def __repr__(self):
         module = self.parser.module
         try:
-            return '<%s: %s-%s>' % (type(self).__name__, module.start_pos, module.end_pos)
+            return '<{0!s}: {1!s}-{2!s}>'.format(type(self).__name__, module.start_pos, module.end_pos)
         except IndexError:
             # There's no module yet.
-            return '<%s: empty>' % type(self).__name__
+            return '<{0!s}: empty>'.format(type(self).__name__)
 
     def reset_node(self):
         """
@@ -231,8 +231,7 @@ class ParserNode(object):
 class FastParser(use_metaclass(CachedFastParser)):
     _FLOWS_NEED_SPACE = 'if', 'elif', 'while', 'with', 'except', 'for'
     _FLOWS_NEED_COLON = 'else', 'try', 'except', 'finally'
-    _keyword_re = re.compile('^[ \t]*(def |class |@|(?:%s)|(?:%s)\s*:)'
-                             % ('|'.join(_FLOWS_NEED_SPACE),
+    _keyword_re = re.compile('^[ \t]*(def |class |@|(?:{0!s})|(?:{1!s})\s*:)'.format('|'.join(_FLOWS_NEED_SPACE),
                                 '|'.join(_FLOWS_NEED_COLON)))
 
     def __init__(self, grammar, source, module_path=None):
@@ -412,8 +411,7 @@ class FastParser(use_metaclass(CachedFastParser)):
         self.current_node = self.current_node.parent_until_indent()
         self.current_node.close()
 
-        debug.dbg('Parsed %s, with %s parsers in %s splits.'
-                  % (self.module_path, self.number_parsers_used,
+        debug.dbg('Parsed {0!s}, with {1!s} parsers in {2!s} splits.'.format(self.module_path, self.number_parsers_used,
                      self.number_of_splits))
 
     def _get_node(self, source, parser_code, line_offset, nodes):

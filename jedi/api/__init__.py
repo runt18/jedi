@@ -104,7 +104,7 @@ class Script(object):
 
         cache.clear_time_caches()
         debug.reset_time()
-        self._grammar = load_grammar('grammar%s.%s' % sys.version_info[:2])
+        self._grammar = load_grammar('grammar{0!s}.{1!s}'.format(*sys.version_info[:2]))
         self._user_context = UserContext(self.source, self._pos)
         self._parser = UserContextParser(self._grammar, self.source, path,
                                          self._pos, self._user_context,
@@ -127,7 +127,7 @@ class Script(object):
         return self.path
 
     def __repr__(self):
-        return '<%s: %s>' % (self.__class__.__name__, repr(self._orig_path))
+        return '<{0!s}: {1!s}>'.format(self.__class__.__name__, repr(self._orig_path))
 
     def completions(self):
         """
@@ -696,7 +696,7 @@ def preload_module(*modules):
     :param modules: different module names, list of string.
     """
     for m in modules:
-        s = "import %s as x; x." % m
+        s = "import {0!s} as x; x.".format(m)
         Script(s, 1, len(s), None).completions()
 
 

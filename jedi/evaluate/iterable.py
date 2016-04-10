@@ -93,12 +93,11 @@ class Generator(use_metaclass(CachedMetaClass, IterableWrapper, GeneratorMixin))
         if name not in ['start_pos', 'end_pos', 'parent', 'get_imports',
                         'doc', 'docstr', 'get_parent_until',
                         'get_code', 'subscopes']:
-            raise AttributeError("Accessing %s of %s is not allowed."
-                                 % (self, name))
+            raise AttributeError("Accessing {0!s} of {1!s} is not allowed.".format(self, name))
         return getattr(self.func, name)
 
     def __repr__(self):
-        return "<%s of %s>" % (type(self).__name__, self.func)
+        return "<{0!s} of {1!s}>".format(type(self).__name__, self.func)
 
 
 class GeneratorMethod(IterableWrapper):
@@ -152,7 +151,7 @@ class Comprehension(IterableWrapper):
         return [self._evaluator.eval_element(self.eval_node())[index]]
 
     def __repr__(self):
-        return "<e%s of %s>" % (type(self).__name__, self._atom)
+        return "<e{0!s} of {1!s}>".format(type(self).__name__, self._atom)
 
 
 class ArrayMixin(object):
@@ -249,7 +248,7 @@ class Array(IterableWrapper, ArrayMixin):
                             and mixed_index == k.obj:
                         for value in values:
                             return self._evaluator.eval_element(value)
-            raise KeyError('No key found in dictionary %s.' % self)
+            raise KeyError('No key found in dictionary {0!s}.'.format(self))
 
         # Can raise an IndexError
         return self._evaluator.eval_element(self._items()[mixed_index])
@@ -267,7 +266,7 @@ class Array(IterableWrapper, ArrayMixin):
     def __getattr__(self, name):
         if name not in ['start_pos', 'get_only_subelement', 'parent',
                         'get_parent_until', 'items']:
-            raise AttributeError('Strange access on %s: %s.' % (self, name))
+            raise AttributeError('Strange access on {0!s}: {1!s}.'.format(self, name))
         return getattr(self.atom, name)
 
     def _values(self):
@@ -305,7 +304,7 @@ class Array(IterableWrapper, ArrayMixin):
         return iter(self._items())
 
     def __repr__(self):
-        return "<%s of %s>" % (type(self).__name__, self.atom)
+        return "<{0!s} of {1!s}>".format(type(self).__name__, self.atom)
 
 
 class _FakeArray(Array):

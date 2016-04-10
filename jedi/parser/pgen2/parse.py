@@ -22,8 +22,7 @@ class ParseError(Exception):
     """Exception to signal the parser is stuck."""
 
     def __init__(self, msg, type, value, start_pos):
-        Exception.__init__(self, "%s: type=%r, value=%r, start_pos=%r" %
-                           (msg, tokenize.tok_name[type], value, start_pos))
+        Exception.__init__(self, "{0!s}: type={1!r}, value={2!r}, start_pos={3!r}".format(msg, tokenize.tok_name[type], value, start_pos))
         self.msg = msg
         self.type = type
         self.value = value

@@ -347,7 +347,7 @@ class Parser(object):
         self.syntax_errors.append(ParserSyntaxError(message, position))
 
     def __repr__(self):
-        return "<%s: %s>" % (type(self).__name__, self.module)
+        return "<{0!s}: {1!s}>".format(type(self).__name__, self.module)
 
     def remove_last_newline(self):
         """

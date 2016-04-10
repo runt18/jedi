@@ -225,7 +225,7 @@ class Leaf(Base):
 
     @utf8_repr
     def __repr__(self):
-        return "<%s: %s>" % (type(self).__name__, self.value)
+        return "<{0!s}: {1!s}>".format(type(self).__name__, self.value)
 
 
 class LeafWithNewLines(Leaf):
@@ -250,7 +250,7 @@ class LeafWithNewLines(Leaf):
 
     @utf8_repr
     def __repr__(self):
-        return "<%s: %r>" % (type(self).__name__, self.value)
+        return "<{0!s}: {1!r}>".format(type(self).__name__, self.value)
 
 class Whitespace(LeafWithNewLines):
     """Contains NEWLINE and ENDMARKER tokens."""
@@ -273,7 +273,7 @@ class Name(Leaf):
         return self.value
 
     def __repr__(self):
-        return "<%s: %s@%s,%s>" % (type(self).__name__, self.value,
+        return "<{0!s}: {1!s}@{2!s},{3!s}>".format(type(self).__name__, self.value,
                                    self.start_pos[0], self.start_pos[1])
 
     def get_definition(self):
@@ -472,8 +472,7 @@ class BaseNode(Base):
         code = self.get_code().replace('\n', ' ')
         if not is_py3:
             code = code.encode(encoding, 'replace')
-        return "<%s: %s@%s,%s>" % \
-            (type(self).__name__, code, self.start_pos[0], self.start_pos[1])
+        return "<{0!s}: {1!s}@{2!s},{3!s}>".format(type(self).__name__, code, self.start_pos[0], self.start_pos[1])
 
 
 class Node(BaseNode):
@@ -493,7 +492,7 @@ class Node(BaseNode):
         self.type = type
 
     def __repr__(self):
-        return "%s(%s, %r)" % (self.__class__.__name__, self.type, self.children)
+        return "{0!s}({1!s}, {2!r})".format(self.__class__.__name__, self.type, self.children)
 
 
 class IsScopeMeta(type):
@@ -569,7 +568,7 @@ class Scope(BaseNode, DocstringMixin):
             except AttributeError:
                 name = self.command
 
-        return "<%s: %s@%s-%s>" % (type(self).__name__, name,
+        return "<{0!s}: {1!s}@{2!s}-{3!s}>".format(type(self).__name__, name,
                                    self.start_pos[0], self.end_pos[0])
 
     def walk(self):
@@ -615,7 +614,7 @@ class Module(Scope):
             string = ''  # no path -> empty name
         else:
             sep = (re.escape(os.path.sep),) * 2
-            r = re.search(r'([^%s]*?)(%s__init__)?(\.py|\.so)?$' % sep, self.path)
+            r = re.search(r'([^{0!s}]*?)({1!s}__init__)?(\.py|\.so)?$'.format(*sep), self.path)
             # Remove PEP 3149 names
             string = re.sub('\.[a-z]+-\d{2}[mud]{0,3}$', '', r.group(1))
         # Positions are not real, but a module starts at (1, 0)
@@ -699,7 +698,7 @@ class Class(ClassOrFunc):
         docstr = self.raw_doc
         for sub in self.subscopes:
             if str(sub.name) == '__init__':
-                return '%s\n\n%s' % (
+                return '{0!s}\n\n{1!s}'.format(
                     sub.get_call_signature(func_name=self.name), docstr)
         return docstr
 
@@ -803,7 +802,7 @@ class Function(ClassOrFunc):
     def doc(self):
         """ Return a document string including call signature. """
         docstr = self.raw_doc
-        return '%s\n\n%s' % (self.get_call_signature(), docstr)
+        return '{0!s}\n\n{1!s}'.format(self.get_call_signature(), docstr)
 
 
 class Lambda(Function):
@@ -831,7 +830,7 @@ class Lambda(Function):
         return []
 
     def __repr__(self):
-        return "<%s@%s>" % (self.__class__.__name__, self.start_pos)
+        return "<{0!s}@{1!s}>".format(self.__class__.__name__, self.start_pos)
 
 
 class Flow(BaseNode):
@@ -1200,8 +1199,8 @@ class Param(BaseNode):
         return self.get_parent_until(IsScope)
 
     def __repr__(self):
-        default = '' if self.default is None else '=%s' % self.default
-        return '<%s: %s>' % (type(self).__name__, str(self._tfpdef()) + default)
+        default = '' if self.default is None else '={0!s}'.format(self.default)
+        return '<{0!s}: {1!s}>'.format(type(self).__name__, str(self._tfpdef()) + default)
 
 
 class CompFor(BaseNode):

@@ -20,7 +20,7 @@ def test_call_signatures_extension():
     else:
         func = 'dlopen'
         params = 2
-    s = jedi.Script('import _ctypes; _ctypes.%s(' % (func,))
+    s = jedi.Script('import _ctypes; _ctypes.{0!s}('.format(func))
     sigs = s.call_signatures()
     assert len(sigs) == 1
     assert len(sigs[0].params) == params

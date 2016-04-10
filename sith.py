@@ -80,7 +80,7 @@ class SourceFinder(object):
 class TestCase(object):
     def __init__(self, operation, path, line, column, traceback=None):
         if operation not in self.operations:
-            raise ValueError("%s is not a valid operation" % operation)
+            raise ValueError("{0!s} is not a valid operation".format(operation))
 
         # Set other attributes
         self.operation = operation
@@ -150,7 +150,7 @@ class TestCase(object):
         print(prefix, '   ', ' ' * (column + len(str(lineno))), '^')
 
     def show_operation(self):
-        print("%s:\n" % self.operation.capitalize())
+        print("{0!s}:\n".format(self.operation.capitalize()))
         if self.operation == 'completions':
             self.show_completions()
         else:
@@ -201,7 +201,7 @@ def main(arguments):
         for _ in range(int(arguments['--maxtries'])):
             t = TestCase.generate(arguments['<path>'] or '.')
             if arguments['-s']:
-                print('%s %s %s %s ' % (t.operation, t.path, t.line, t.column))
+                print('{0!s} {1!s} {2!s} {3!s} '.format(t.operation, t.path, t.line, t.column))
                 sys.stdout.flush()
             else:
                 print('.', end='')

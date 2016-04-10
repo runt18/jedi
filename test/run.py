@@ -147,7 +147,7 @@ class IntegrationTestCase(object):
         return self.line_nr - 1
 
     def __repr__(self):
-        return '<%s: %s:%s:%s>' % (self.__class__.__name__, self.module_name,
+        return '<{0!s}: {1!s}:{2!s}:{3!s}>'.format(self.__class__.__name__, self.module_name,
                                    self.line_nr_test, self.line.rstrip())
 
     def script(self):
@@ -189,14 +189,12 @@ class IntegrationTestCase(object):
                 try:
                     should_be |= defs(self.line_nr - 1, end + correct_start)
                 except Exception:
-                    print('could not resolve %s indent %s'
-                          % (self.line_nr - 1, end))
+                    print('could not resolve {0!s} indent {1!s}'.format(self.line_nr - 1, end))
                     raise
             # because the objects have different ids, `repr`, then compare.
             should = set(comparison(r) for r in should_be)
             if len(should) < number:
-                raise Exception('Solution @%s not right, too few test results: %s'
-                                % (self.line_nr - 1, should))
+                raise Exception('Solution @{0!s} not right, too few test results: {1!s}'.format(self.line_nr - 1, should))
             return should
 
         script = self.script()
@@ -287,7 +285,7 @@ def collect_dir_tests(base_dir, test_files, check_thirdparty=False):
                     # It looks like: completion/thirdparty/pylab_.py
                     __import__(lib)
                 except ImportError:
-                    skip = 'Thirdparty-Library %s not found.' % lib
+                    skip = 'Thirdparty-Library {0!s} not found.'.format(lib)
 
             path = os.path.join(base_dir, f_name)
 
@@ -360,14 +358,13 @@ if __name__ == '__main__':
     def file_change(current, tests, fails):
         if current is not None:
             current = os.path.basename(current)
-        print('%s \t\t %s tests and %s fails.' % (current, tests, fails))
+        print('{0!s} \t\t {1!s} tests and {2!s} fails.'.format(current, tests, fails))
 
     def report(case, actual, desired):
         if actual == desired:
             return 0
         else:
-            print("\ttest fail @%d, actual = %s, desired = %s"
-                  % (case.line_nr - 1, actual, desired))
+            print("\ttest fail @{0:d}, actual = {1!s}, desired = {2!s}".format(case.line_nr - 1, actual, desired))
             return 1
 
     import traceback
@@ -385,7 +382,7 @@ if __name__ == '__main__':
                 fails += 1
         except Exception:
             traceback.print_exc()
-            print("\ttest fail @%d" % (c.line_nr - 1))
+            print("\ttest fail @{0:d}".format((c.line_nr - 1)))
             tests_fail += 1
             fails += 1
             if arguments['--pdb']:
@@ -396,8 +393,7 @@ if __name__ == '__main__':
 
     file_change(current, count, fails)
 
-    print('\nSummary: (%s fails of %s tests) in %.3fs'
-          % (tests_fail, len(cases), time.time() - t_start))
+    print('\nSummary: ({0!s} fails of {1!s} tests) in {2:.3f}s'.format(tests_fail, len(cases), time.time() - t_start))
     for s in summary:
         print(s)
 

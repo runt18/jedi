@@ -33,7 +33,7 @@ def diff_code_assert(a, b, n=4):
             n=n,
             lineterm=""
         ))
-        assert False, "Code does not match:\n%s\n\ncreated code:\n%s" % (
+        assert False, "Code does not match:\n{0!s}\n\ncreated code:\n{1!s}".format(
             diff,
             b
         )

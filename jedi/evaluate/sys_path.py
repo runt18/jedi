@@ -35,7 +35,7 @@ def _get_venv_sitepackages(venv):
     if os.name == 'nt':
         p = os.path.join(venv, 'lib', 'site-packages')
     else:
-        p = os.path.join(venv, 'lib', 'python%d.%d' % sys.version_info[:2],
+        p = os.path.join(venv, 'lib', 'python{0:d}.{1:d}'.format(*sys.version_info[:2]),
                          'site-packages')
     return p
 

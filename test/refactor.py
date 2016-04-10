@@ -57,7 +57,7 @@ class RefactoringCase(object):
         return self.run() == self.desired
 
     def __repr__(self):
-        return '<%s: %s:%s>' % (self.__class__.__name__,
+        return '<{0!s}: {1!s}:{2!s}>'.format(self.__class__.__name__,
                                 self.name, self.line_nr - 1)
 
 

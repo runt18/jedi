@@ -24,7 +24,7 @@ def test_namespace_package():
         for source, solution in tests.items():
             ass = jedi.Script(source).goto_assignments()
             assert len(ass) == 1
-            assert ass[0].description == "foo = '%s'" % solution
+            assert ass[0].description == "foo = '{0!s}'".format(solution)
 
         # completion
         completions = jedi.Script('from pkg import ').completions()
@@ -47,7 +47,7 @@ def test_namespace_package():
             for c in jedi.Script(source + '; x.').completions():
                 if c.name == 'foo':
                     completion = c
-            solution = "statement: foo = '%s'" % solution
+            solution = "statement: foo = '{0!s}'".format(solution)
             assert completion.description == solution
 
     finally:

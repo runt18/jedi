@@ -95,7 +95,7 @@ def func():
 # operators
 # -----------------
 
-string = '%s %s' % (1, 2)
+string = '{0!s} {1!s}'.format(1, 2)
 
 # Shouldn't raise an error, because `string` is really just a string, not an
 # array or something.

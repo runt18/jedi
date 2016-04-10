@@ -40,7 +40,7 @@ def generate_pyc():
         # directory and rename them to remove ".cpython-%s%d"
         # see: http://stackoverflow.com/questions/11648440/python-does-not-detect-pyc-files
         for f in os.listdir("dummy_package/__pycache__"):
-            dst = f.replace('.cpython-%s%s' % sys.version_info[:2], "")
+            dst = f.replace('.cpython-{0!s}{1!s}'.format(*sys.version_info[:2]), "")
             dst = os.path.join("dummy_package", dst)
             shutil.copy(os.path.join("dummy_package/__pycache__", f), dst)
 

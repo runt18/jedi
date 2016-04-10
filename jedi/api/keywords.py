@@ -84,7 +84,7 @@ class Keyword(object):
         return imitate_pydoc(self.name)
 
     def __repr__(self):
-        return '<%s: %s>' % (type(self).__name__, self.name)
+        return '<{0!s}: {1!s}>'.format(type(self).__name__, self.name)
 
 
 def imitate_pydoc(string):

@@ -149,7 +149,7 @@ class NestedImportModule(tree.Module):
         return getattr(self._module, name)
 
     def __repr__(self):
-        return "<%s: %s of %s>" % (self.__class__.__name__, self._module,
+        return "<{0!s}: {1!s} of {2!s}>".format(self.__class__.__name__, self._module,
                                    self._nested_import)
 
 
@@ -185,7 +185,7 @@ class Importer(object):
 
         :param import_path: List of namespaces (strings or Names).
         """
-        debug.speed('import %s' % (import_path,))
+        debug.speed('import {0!s}'.format(import_path))
         self._evaluator = evaluator
         self.level = level
         self.module = module

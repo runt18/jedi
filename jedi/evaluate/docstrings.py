@@ -125,7 +125,7 @@ def _evaluate_for_statement_string(evaluator, string, module):
     for element in re.findall('((?:\w+\.)*\w+)\.', string):
         # Try to import module part in dotted name.
         # (e.g., 'threading' in 'threading.Thread').
-        string = 'import %s\n' % element + string
+        string = 'import {0!s}\n'.format(element) + string
 
     # Take the default grammar here, if we load the Python 2.7 grammar here, it
     # will be impossible to use `...` (Ellipsis) as a token. Docstring types

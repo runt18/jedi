@@ -108,7 +108,7 @@ class TokenTest(unittest.TestCase):
         ]
 
         for s in string_tokens:
-            parsed = Parser(load_grammar(), u('''a = %s\n''' % s))
+            parsed = Parser(load_grammar(), u('''a = {0!s}\n'''.format(s)))
             simple_stmt = parsed.module.children[0]
             expr_stmt = simple_stmt.children[0]
             assert len(expr_stmt.children) == 3

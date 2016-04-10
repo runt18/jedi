@@ -25,7 +25,7 @@ import jedi
 def run(code, index):
     start = time.time()
     result = jedi.Script(code).completions()
-    print('Used %ss for the %sth run.' % (time.time() - start, index + 1))
+    print('Used {0!s}s for the {1!s}th run.'.format(time.time() - start, index + 1))
     return result
 
 

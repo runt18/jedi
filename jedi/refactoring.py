@@ -146,11 +146,11 @@ def extract(script, new_name):
             close_brackets = [')', ']', '}']
             if '\n' in text and not (text[0] in open_brackets and text[-1] ==
                                      close_brackets[open_brackets.index(text[0])]):
-                text = '(%s)' % text
+                text = '({0!s})'.format(text)
 
             # add new line before statement
             indent = user_stmt.start_pos[1]
-            new = "%s%s = %s" % (' ' * indent, new_name, text)
+            new = "{0!s}{1!s} = {2!s}".format(' ' * indent, new_name, text)
             new_lines.insert(line_index, new)
     dct[script.path] = script.path, old_lines, new_lines
     return Refactoring(dct)
@@ -185,7 +185,7 @@ def inline(script):
         if expression_list and isinstance(expression_list[0], pr.Array):
             arr = expression_list[0]
             if replace_str[0] not in ['(', '[', '{'] and len(arr) > 1:
-                replace_str = '(%s)' % replace_str
+                replace_str = '({0!s})'.format(replace_str)
 
         # if it's the only assignment, remove the statement
         if len(stmt.get_defined_names()) == 1:

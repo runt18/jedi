@@ -357,7 +357,7 @@ class BaseDefinition(object):
         return Definition(self._evaluator, scope.name)
 
     def __repr__(self):
-        return "<%s %s>" % (type(self).__name__, self.description)
+        return "<{0!s} {1!s}>".format(type(self).__name__, self.description)
 
 
 class Completion(BaseDefinition):
@@ -428,11 +428,11 @@ class Completion(BaseDefinition):
         else:
             desc = '.'.join(unicode(p) for p in self._path())
 
-        line = '' if self.in_builtin_module else '@%s' % self.line
-        return '%s: %s%s' % (t, desc, line)
+        line = '' if self.in_builtin_module else '@{0!s}'.format(self.line)
+        return '{0!s}: {1!s}{2!s}'.format(t, desc, line)
 
     def __repr__(self):
-        return '<%s: %s>' % (type(self).__name__, self._name)
+        return '<{0!s}: {1!s}>'.format(type(self).__name__, self._name)
 
     def docstring(self, raw=False, fast=True):
         """
@@ -552,7 +552,7 @@ class Definition(use_metaclass(CachedMetaClass, BaseDefinition)):
             d = 'def ' + unicode(d.name)
         elif isinstance(d, tree.Module):
             # only show module name
-            d = 'module %s' % self.module_name
+            d = 'module {0!s}'.format(self.module_name)
         elif isinstance(d, tree.Param):
             d = d.get_code().strip()
             if d.endswith(','):
@@ -586,8 +586,8 @@ class Definition(use_metaclass(CachedMetaClass, BaseDefinition)):
         .. todo:: Add full path. This function is should return a
             `module.class.function` path.
         """
-        position = '' if self.in_builtin_module else '@%s' % (self.line)
-        return "%s:%s%s" % (self.module_name, self.description, position)
+        position = '' if self.in_builtin_module else '@{0!s}'.format((self.line))
+        return "{0!s}:{1!s}{2!s}".format(self.module_name, self.description, position)
 
     @memoize_default()
     def defined_names(self):
@@ -689,7 +689,7 @@ class CallSignature(Definition):
         return self._executable.get_parent_until()
 
     def __repr__(self):
-        return '<%s: %s index %s>' % (type(self).__name__, self._name,
+        return '<{0!s}: {1!s} index {2!s}>'.format(type(self).__name__, self._name,
                                       self.index)
 
 

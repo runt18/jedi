@@ -99,7 +99,7 @@ class CompiledObject(Base):
         return params
 
     def __repr__(self):
-        return '<%s: %s>' % (type(self).__name__, repr(self.obj))
+        return '<{0!s}: {1!s}>'.format(type(self).__name__, repr(self.obj))
 
     @underscore_memoization
     def _parse_function_doc(self):
@@ -166,7 +166,7 @@ class CompiledObject(Base):
         if name in dir(self._cls().obj):
             return CompiledName(self._cls(), name).parent
         else:
-            raise KeyError("CompiledObject doesn't have an attribute '%s'." % name)
+            raise KeyError("CompiledObject doesn't have an attribute '{0!s}'.".format(name))
 
     def get_index_types(self, evaluator, index_array=()):
         # If the object doesn't have `__getitem__`, just raise the
@@ -262,7 +262,7 @@ class LazyNamesDict(object):
         try:
             getattr(self._compiled_obj.obj, name)
         except AttributeError:
-            raise KeyError('%s in %s not found.' % (name, self._compiled_obj))
+            raise KeyError('{0!s} in {1!s} not found.'.format(name, self._compiled_obj))
         return [CompiledName(self._compiled_obj, name)]
 
     def values(self):
@@ -293,7 +293,7 @@ class CompiledName(FakeName):
             name = self._obj.name  # __name__ is not defined all the time
         except AttributeError:
             name = None
-        return '<%s: (%s).%s>' % (type(self).__name__, name, self.name)
+        return '<{0!s}: ({1!s}).{2!s}>'.format(type(self).__name__, name, self.name)
 
     def is_definition(self):
         return True

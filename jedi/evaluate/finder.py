@@ -91,8 +91,7 @@ class NameFinder(object):
                          and isinstance(self.name_str.parent.parent, tree.Param)):
             if not isinstance(self.name_str, (str, unicode)):  # TODO Remove?
                 if search_global:
-                    message = ("NameError: name '%s' is not defined."
-                               % self.name_str)
+                    message = ("NameError: name '{0!s}' is not defined.".format(self.name_str))
                     analysis.add(self._evaluator, 'name-error', self.name_str,
                                  message)
                 else:

@@ -18,7 +18,7 @@ Then you will be able to use Jedi completer in your Python interpreter::
 import jedi.utils
 from jedi import __version__ as __jedi_version__
 
-print('REPL completion using Jedi %s' % __jedi_version__)
+print('REPL completion using Jedi {0!s}'.format(__jedi_version__))
 jedi.utils.setup_readline()
 
 del jedi

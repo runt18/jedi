@@ -261,8 +261,7 @@ class Evaluator(object):
                 try:
                     get = typ.get_index_types
                 except AttributeError:
-                    debug.warning("TypeError: '%s' object is not subscriptable"
-                                  % typ)
+                    debug.warning("TypeError: '{0!s}' object is not subscriptable".format(typ))
                 else:
                     new_types += get(self, node)
         return new_types

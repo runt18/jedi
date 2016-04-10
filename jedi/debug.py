@@ -76,7 +76,7 @@ def speed(name):
     if debug_function and enable_speed:
         now = time.time()
         i = ' ' * _debug_indent
-        debug_function(SPEED, i + 'speed: ' + '%s %s' % (name, now - _start_time))
+        debug_function(SPEED, i + 'speed: ' + '{0!s} {1!s}'.format(name, now - _start_time))
 
 
 def print_to_stdout(level, str_out):

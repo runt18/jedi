@@ -240,7 +240,7 @@ class ParserPickling(object):
 
     def __init__(self):
         self.__index = None
-        self.py_tag = 'cpython-%s%s' % sys.version_info[:2]
+        self.py_tag = 'cpython-{0!s}{1!s}'.format(*sys.version_info[:2])
         """
         Short name for distinguish Python implementations and versions.
 
@@ -320,7 +320,7 @@ class ParserPickling(object):
         shutil.rmtree(self._cache_directory())
 
     def _get_hashed_path(self, path):
-        return self._get_path('%s.pkl' % hashlib.md5(path.encode("utf-8")).hexdigest())
+        return self._get_path('{0!s}.pkl'.format(hashlib.md5(path.encode("utf-8")).hexdigest()))
 
     def _get_path(self, file):
         dir = self._cache_directory()

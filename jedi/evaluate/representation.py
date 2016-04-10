@@ -220,15 +220,14 @@ class Instance(use_metaclass(CachedMetaClass, Executed)):
     def __getattr__(self, name):
         if name not in ['start_pos', 'end_pos', 'get_imports', 'type',
                         'doc', 'raw_doc']:
-            raise AttributeError("Instance %s: Don't touch this (%s)!"
-                                 % (self, name))
+            raise AttributeError("Instance {0!s}: Don't touch this ({1!s})!".format(self, name))
         return getattr(self.base, name)
 
     def __repr__(self):
         dec = ''
         if self.decorates is not None:
             dec = " decorates " + repr(self.decorates)
-        return "<e%s of %s(%s)%s>" % (type(self).__name__, self.base,
+        return "<e{0!s} of {1!s}({2!s}){3!s}>".format(type(self).__name__, self.base,
                                       self.var_args, dec)
 
 
@@ -364,7 +363,7 @@ class InstanceElement(use_metaclass(CachedMetaClass, tree.Base)):
             return Function.py__call__(self, evaluator, params)
 
     def __repr__(self):
-        return "<%s of %s>" % (type(self).__name__, self.var)
+        return "<{0!s} of {1!s}>".format(type(self).__name__, self.var)
 
 
 class Wrapper(tree.Base):
@@ -473,11 +472,11 @@ class Class(use_metaclass(CachedMetaClass, Wrapper)):
         if name not in ['start_pos', 'end_pos', 'parent', 'raw_doc',
                         'doc', 'get_imports', 'get_parent_until', 'get_code',
                         'subscopes', 'names_dict', 'type']:
-            raise AttributeError("Don't touch this: %s of %s !" % (name, self))
+            raise AttributeError("Don't touch this: {0!s} of {1!s} !".format(name, self))
         return getattr(self.base, name)
 
     def __repr__(self):
-        return "<e%s of %s>" % (type(self).__name__, self.base)
+        return "<e{0!s} of {1!s}>".format(type(self).__name__, self.base)
 
 
 class Function(use_metaclass(CachedMetaClass, Wrapper)):
@@ -566,7 +565,7 @@ class Function(use_metaclass(CachedMetaClass, Wrapper)):
         dec = ''
         if self.decorates is not None:
             dec = " decorates " + repr(self.decorates)
-        return "<e%s of %s%s>" % (type(self).__name__, self.base_func, dec)
+        return "<e{0!s} of {1!s}{2!s}>".format(type(self).__name__, self.base_func, dec)
 
 
 class LambdaWrapper(Function):
@@ -662,7 +661,7 @@ class FunctionExecution(Executed):
 
     def __getattr__(self, name):
         if name not in ['start_pos', 'end_pos', 'imports', 'name', 'type']:
-            raise AttributeError('Tried to access %s: %s. Why?' % (name, self))
+            raise AttributeError('Tried to access {0!s}: {1!s}. Why?'.format(name, self))
         return getattr(self.base, name)
 
     def _scope_copy(self, scope):
@@ -694,7 +693,7 @@ class FunctionExecution(Executed):
         return tree.Scope._search_in_scope(self, tree.Scope)
 
     def __repr__(self):
-        return "<%s of %s>" % (type(self).__name__, self.base)
+        return "<{0!s} of {1!s}>".format(type(self).__name__, self.base)
 
 
 class GlobalName(helpers.FakeName):
@@ -854,4 +853,4 @@ class ModuleWrapper(use_metaclass(CachedMetaClass, tree.Module, Wrapper)):
         return getattr(self._module, name)
 
     def __repr__(self):
-        return "<%s: %s>" % (type(self).__name__, self._module)
+        return "<{0!s}: {1!s}>".format(type(self).__name__, self._module)

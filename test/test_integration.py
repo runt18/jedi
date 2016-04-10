@@ -14,10 +14,10 @@ def assert_case_equal(case, actual, desired):
     due to py.test magic, let's format the message by hand.
     """
     assert actual == desired, """
-Test %r failed.
-actual  = %s
-desired = %s
-""" % (case, actual, desired)
+Test {0!r} failed.
+actual  = {1!s}
+desired = {2!s}
+""".format(case, actual, desired)
 
 
 def assert_static_analysis(case, actual, desired):
@@ -25,10 +25,10 @@ def assert_static_analysis(case, actual, desired):
     a = set(actual)
     d = set(desired)
     assert actual == desired, """
-Test %r failed.
-not raised  = %s
-unspecified = %s
-""" % (case, sorted(d - a), sorted(a - d))
+Test {0!r} failed.
+not raised  = {1!s}
+unspecified = {2!s}
+""".format(case, sorted(d - a), sorted(a - d))
 
 
 def test_completion(case, monkeypatch):

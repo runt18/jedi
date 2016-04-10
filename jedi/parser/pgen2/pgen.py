@@ -126,7 +126,7 @@ class ParserGenerator(object):
                 if label in self.first:
                     fset = self.first[label]
                     if fset is None:
-                        raise ValueError("recursion for rule %r" % name)
+                        raise ValueError("recursion for rule {0!r}".format(name))
                 else:
                     self.calcfirst(label)
                     fset = self.first[label]
@@ -220,16 +220,16 @@ class ParserGenerator(object):
                     j = len(todo)
                     todo.append(next)
                 if label is None:
-                    print("    -> %d" % j)
+                    print("    -> {0:d}".format(j))
                 else:
-                    print("    %s -> %d" % (label, j))
+                    print("    {0!s} -> {1:d}".format(label, j))
 
     def dump_dfa(self, name, dfa):
         print("Dump of DFA for", name)
         for i, state in enumerate(dfa):
             print("  State", i, state.isfinal and "(final)" or "")
             for label, next in state.arcs.items():
-                print("    %s -> %d" % (label, dfa.index(next)))
+                print("    {0!s} -> {1:d}".format(label, dfa.index(next)))
 
     def simplify_dfa(self, dfa):
         # This is not theoretically optimal, but works well enough.

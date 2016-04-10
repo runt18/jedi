@@ -19,7 +19,7 @@ def test_namedtuple_str(letter, expected):
     source = "import collections\n" + \
              "Person = collections.namedtuple('Person', 'name smart')\n" + \
              "dave = Person('Dave', False)\n" + \
-             "dave.%s" % letter
+             "dave.{0!s}".format(letter)
     result = Script(source).completions()
     completions = set(r.name for r in result)
     if is_py26:

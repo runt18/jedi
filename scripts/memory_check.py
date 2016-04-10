@@ -42,11 +42,11 @@ def main(mods):
     for mod in mods:
         elapsed, used = profile_preload(mod)
         if used > 0:
-            print('%8.2f | %8d | %s' % (elapsed, used, mod))
+            print('{0:8.2f} | {1:8d} | {2!s}'.format(elapsed, used, mod))
     print('------------------------------')
     elapsed = time.time() - t0
     used = used_memory() - baseline
-    print('%8.2f | %8d | %s' % (elapsed, used, 'Total'))
+    print('{0:8.2f} | {1:8d} | {2!s}'.format(elapsed, used, 'Total'))
 
 
 if __name__ == '__main__':

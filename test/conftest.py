@@ -60,7 +60,7 @@ def pytest_generate_tests(metafunc):
         if thirdparty:
             cases.extend(run.collect_dir_tests(
                 os.path.join(base_dir, 'thirdparty'), test_files, True))
-        ids = ["%s:%s" % (c.module_name, c.line_nr_test) for c in cases]
+        ids = ["{0!s}:{1!s}".format(c.module_name, c.line_nr_test) for c in cases]
         metafunc.parametrize('case', cases, ids=ids)
 
     if 'refactor_case' in metafunc.fixturenames:
@@ -112,7 +112,7 @@ class StaticAnalysisCase(object):
         compare_cb(self, analysis, self.collect_comparison())
 
     def __repr__(self):
-        return "<%s: %s>" % (self.__class__.__name__, os.path.basename(self._path))
+        return "<{0!s}: {1!s}>".format(self.__class__.__name__, os.path.basename(self._path))
 
 
 @pytest.fixture()

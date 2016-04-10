@@ -24,7 +24,7 @@ class Status(object):
             return REACHABLE if self._value and other._value else UNREACHABLE
 
     def __repr__(self):
-        return '<%s: %s>' % (type(self).__name__, self._name)
+        return '<{0!s}: {1!s}>'.format(type(self).__name__, self._name)
 
 
 REACHABLE = Status(True, 'reachable')

@@ -45,7 +45,7 @@ class Error(object):
         return first + str(CODES[self.name][0])
 
     def __unicode__(self):
-        return '%s:%s:%s: %s %s' % (self.path, self.line, self.column,
+        return '{0!s}:{1!s}:{2!s}: {3!s} {4!s}'.format(self.path, self.line, self.column,
                                     self.code, self.message)
 
     def __str__(self):
@@ -62,7 +62,7 @@ class Error(object):
         return hash((self.path, self._start_pos, self.name))
 
     def __repr__(self):
-        return '<%s %s: %s@%s,%s>' % (self.__class__.__name__,
+        return '<{0!s} {1!s}: {2!s}@{3!s},{4!s}>'.format(self.__class__.__name__,
                                       self.name, self.path,
                                       self._start_pos[0], self._start_pos[1])
 
@@ -104,7 +104,7 @@ def _check_for_setattr(instance):
 
 
 def add_attribute_error(evaluator, scope, name):
-    message = ('AttributeError: %s has no attribute %s.' % (scope, name))
+    message = ('AttributeError: {0!s} has no attribute {1!s}.'.format(scope, name))
     from jedi.evaluate.representation import Instance
     # Check for __getattr__/__getattribute__ existance and issue a warning
     # instead of an error, if that happens.
