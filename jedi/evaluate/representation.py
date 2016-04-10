@@ -197,7 +197,7 @@ class Instance(use_metaclass(CachedMetaClass, Executed)):
 
     def get_index_types(self, evaluator, index_array):
         indexes = iterable.create_indexes_or_slices(self._evaluator, index_array)
-        if any([isinstance(i, iterable.Slice) for i in indexes]):
+        if any( isinstance(i, iterable.Slice) for i in indexes):
             # Slice support in Jedi is very marginal, at the moment, so just
             # ignore them in case of __getitem__.
             # TODO support slices in a more general way.

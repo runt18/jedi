@@ -585,7 +585,8 @@ class Interpreter(Script):
         `source`.
         """
         if type(namespaces) is not list or len(namespaces) == 0 or \
-           any([type(x) is not dict for x in namespaces]):
+           any( \
+           type(x) is not dict for x in namespaces):
             raise TypeError("namespaces must be a non-empty list of dict")
 
         super(Interpreter, self).__init__(source, **kwds)
